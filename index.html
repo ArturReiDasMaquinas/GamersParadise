@@ -2,158 +2,62 @@
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Central Retro - Multiconsolas</title>
+    <title>Central Retro - SNES & Mega Drive</title>
     <style>
-        body { 
-            background-color: #1a1a2e; 
-            color: #ffffff; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-        }
-        
+        body { background-color: #1a1a2e; color: #ffffff; font-family: sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         header { text-align: center; margin-bottom: 20px; }
-        h1 { color: #e94560; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 2px; }
-        p { color: #a2a2bc; margin: 0; font-size: 1.1rem; }
-
-        .nav-bar { margin-top: 15px; margin-bottom: 20px; }
-        .btn-nav {
-            background-color: #0f3460; color: #fff; text-decoration: none;
-            padding: 10px 20px; border-radius: 5px; font-weight: bold;
-            border: 1px solid #e94560; transition: 0.3s;
-        }
-        .btn-nav:hover { background-color: #e94560; color: white; }
-
-        .control-panel {
-            display: flex;
-            gap: 15px;
+        h1 { color: #e94560; text-transform: uppercase; }
+        
+        /* Botão para o link externo */
+        .btn-link { 
+            background-color: #0f3460; 
+            color: #fff; 
+            text-decoration: none; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            border: 1px solid #e94560; 
+            display: inline-block;
             margin-bottom: 20px;
-            align-items: center;
-            background: #0f3460;
-            padding: 15px 25px;
-            border-radius: 8px;
-            border: 2px solid #e94560;
         }
+        .btn-link:hover { background-color: #e94560; }
 
-        select {
-            padding: 10px;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            border: none;
-            background: #1a1a2e;
-            color: white;
-            font-weight: bold;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .btn-upload {
-            background-color: #e94560;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-upload:hover { background-color: #ff5c77; transform: scale(1.05); }
-
-        #game-container { 
-            width: 800px; height: 600px; max-width: 100%; 
-            border: 4px solid #0f3460; border-radius: 10px;
-            box-shadow: 0px 0px 30px rgba(233, 69, 96, 0.4); 
-            background: #000; overflow: hidden; display: none; 
-        }
-
-        .instructions, .credits {
-            background: #0f3460; padding: 15px 30px; border-radius: 8px;
-            border-left: 5px solid #e94560; max-width: 800px; width: 100%; margin-bottom: 20px;
-        }
-        .credits { background: #11111f; border-left: 5px solid #a2a2bc; color: #ccc; font-size: 0.9rem; }
-        .credits h3 { color: #a2a2bc; margin-top: 0; margin-bottom: 10px; }
+        .control-panel { background: #0f3460; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        #game-container { width: 800px; height: 600px; background: #000; display: none; border-radius: 10px; }
+        .btn-upload { background-color: #e94560; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; }
     </style>
 </head>
 <body>
-
     <header>
-        <h1>🎮 Central de Emulação</h1>
-        <p>Selecione a consola e carregue o seu jogo.</p>
-        
-        <div class="nav-bar">
-            <a href="cantinho.html" class="btn-nav">📂 Visitar a Galeria do Artur</a>
-        </div>
+        <h1>🎮 Central Retro</h1>
+        <a href="https://www.youtube.com/@Senhor1Up" class="btn-link" target="_blank">📺 Visitar Canal Senhor1Up</a>
     </header>
     
-    <div class="control-panel" id="painel-controles">
-        <select id="console-selector" onchange="atualizarExtensao()">
-            <option value="nes" data-ext=".nes">Nintendo (NES)</option>
+    <div class="control-panel">
+        <select id="console-selector">
             <option value="snes" data-ext=".sfc,.smc">Super Nintendo (SNES)</option>
-            <option value="gba" data-ext=".gba">Game Boy Advance (GBA)</option>
             <option value="segaMD" data-ext=".md,.smd,.gen,.bin">Mega Drive</option>
-            <option value="n64" data-ext=".z64,.n64,.v64">Nintendo 64</option>
         </select>
-
-        <input type="file" id="rom-upload" accept=".nes" style="display: none;">
-        <button class="btn-upload" onclick="document.getElementById('rom-upload').click()">
-            🕹️ Carregar ROM
-        </button>
+        <button class="btn-upload" onclick="document.getElementById('rom-upload').click()">🕹️ Carregar ROM</button>
+        <input type="file" id="rom-upload" style="display: none;">
     </div>
 
-    <div id="game-container">
-        <div id="game"></div>
-    </div>
-
-    <div class="instructions" id="instrucoes">
-        <h3>Como jogar:</h3>
-        <ul>
-            <li>Escolha a consola no menu.</li>
-            <li>Clique em "Carregar ROM" e escolha o seu ficheiro.</li>
-        </ul>
-    </div>
-
-    <div class="credits" id="creditos">
-        <h3>🏆 Homebrew e Fanmades</h3>
-        <p>Este portal apoia o desenvolvimento de jogos independentes. Todos os direitos pertencem aos respetivos autores.</p>
-    </div>
+    <div id="game-container"><div id="game"></div></div>
 
     <script>
-        function atualizarExtensao() {
-            let selector = document.getElementById('console-selector');
-            let extensaoPermitida = selector.options[selector.selectedIndex].getAttribute('data-ext');
-            document.getElementById('rom-upload').setAttribute('accept', extensaoPermitida);
-        }
-
-        atualizarExtensao();
-
         document.getElementById('rom-upload').addEventListener('change', function(event) {
             let file = event.target.files[0];
             if (!file) return;
-
             let consoleEscolhido = document.getElementById('console-selector').value;
-            let romTemporariaURL = URL.createObjectURL(file);
-
-            document.getElementById('painel-controles').style.display = 'none';
-            document.getElementById('instrucoes').style.display = 'none';
-            document.getElementById('creditos').style.display = 'none';
+            let romURL = URL.createObjectURL(file);
             document.getElementById('game-container').style.display = 'block';
-
             window.EJS_player = '#game';
             window.EJS_core = consoleEscolhido;
-            window.EJS_color = '#e94560'; 
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
-            window.EJS_gameUrl = romTemporariaURL; 
-
+            window.EJS_gameUrl = romURL;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
             let script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
             document.body.appendChild(script);
         });
     </script>
-    
 </body>
 </html>
