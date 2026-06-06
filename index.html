@@ -16,24 +16,26 @@
             align-items: center; 
         }
         
-        header {
-            text-align: center;
+        header { text-align: center; margin-bottom: 20px; }
+        h1 { color: #e94560; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 2px; }
+        p { color: #a2a2bc; margin: 0; font-size: 1.1rem; }
+
+        /* O botão bonitão de Upload */
+        .btn-upload {
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
             margin-bottom: 20px;
         }
+        .btn-upload:hover { background-color: #ff5c77; transform: scale(1.05); }
 
-        h1 { 
-            color: #e94560; 
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        p {
-            color: #a2a2bc;
-            margin: 0;
-            font-size: 1.1rem;
-        }
-
+        /* O container do jogo começa escondido */
         #game-container { 
             width: 800px; 
             height: 600px; 
@@ -43,15 +45,16 @@
             box-shadow: 0px 0px 30px rgba(233, 69, 96, 0.4); 
             background: #000;
             overflow: hidden;
+            display: none; /* Só aparece quando carregar o jogo */
         }
 
         .instructions {
-            margin-top: 20px;
             background: #0f3460;
             padding: 15px 30px;
             border-radius: 8px;
             border-left: 5px solid #e94560;
             max-width: 800px;
+            width: 100%;
         }
     </style>
 </head>
@@ -59,39 +62,55 @@
 
     <header>
         <h1>🎮 Central de Emulação</h1>
-        <p>Acesse seus jogos de qualquer lugar.</p>
+        <p>Selecione um jogo do seu PC para começar.</p>
     </header>
     
+    <input type="file" id="rom-upload" accept=".nes" style="display: none;">
+    <button class="btn-upload" onclick="document.getElementById('rom-upload').click()">
+        📁 Carregar ROM de NES
+    </button>
+
     <div id="game-container">
         <div id="game"></div>
     </div>
 
-    <div class="instructions">
+    <div class="instructions" id="instrucoes">
         <h3>Como jogar:</h3>
         <ul>
-            <li>Clique no botão do emulador acima.</li>
-            <li>Selecione uma ROM (.nes) que esteja no computador que você está usando.</li>
-            <li><strong>Saves:</strong> O progresso é salvo no navegador. Use o menu do emulador para exportar seu arquivo de save se for trocar de computador!</li>
+            <li>Clique no botão acima e escolha um arquivo <b>.nes</b>.</li>
+            <li>O jogo rodará instantaneamente direto do seu navegador.</li>
+            <li><strong>Saves:</strong> O progresso é salvo no navegador. Exporte seu save pelo menu caso vá mudar de computador.</li>
         </ul>
     </div>
 
     <script>
-        EJS_player = '#game';
-        
-        // Define o núcleo para Nintendo Entertainment System (NES)
-        EJS_core = 'nes'; 
-        
-        // Personalização visual
-        EJS_color = '#e94560'; 
-        
-        // Carrega os dados direto da CDN oficial (não precisa baixar os núcleos no GitHub)
-        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
-        
-        // NOTA: Como não definimos a EJS_gameUrl, o emulador abrirá
-        // automaticamente a tela de "Upload File" para você subir sua ROM na hora.
+        // Escuta quando o usuário escolhe um arquivo
+        document.getElementById('rom-upload').addEventListener('change', function(event) {
+            let file = event.target.files[0];
+            if (!file) return;
+
+            // Transforma o arquivo local em um link "falso" que o emulador entende
+            let romTemporariaURL = URL.createObjectURL(file);
+
+            // Esconde as instruções e mostra a tela do jogo
+            document.getElementById('instrucoes').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
+
+            // Inicia a configuração do Emulador
+            window.EJS_player = '#game';
+            window.EJS_core = 'nes'; 
+            window.EJS_color = '#e94560'; 
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
+            
+            // Passa a ROM que acabamos de carregar
+            window.EJS_gameUrl = romTemporariaURL; 
+
+            // Injeta o motor do emulador só AGORA (evita o erro de rede)
+            let script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(script);
+        });
     </script>
-    
-    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
     
 </body>
 </html>
