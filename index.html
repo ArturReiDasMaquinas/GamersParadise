@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +19,28 @@
         header { text-align: center; margin-bottom: 20px; }
         h1 { color: #e94560; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 2px; }
         p { color: #a2a2bc; margin: 0; font-size: 1.1rem; }
+
+        /* Estilo para a barra de navegação */
+        .nav-bar {
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-nav {
+            background-color: #0f3460;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            border: 1px solid #e94560;
+            transition: 0.3s;
+        }
+
+        .btn-nav:hover {
+            background-color: #e94560;
+            color: white;
+        }
 
         /* O botão bonitão de Upload */
         .btn-upload {
@@ -55,7 +77,21 @@
             border-left: 5px solid #e94560;
             max-width: 800px;
             width: 100%;
+            margin-bottom: 20px;
         }
+
+        .credits {
+            margin-top: 20px;
+            background: #11111f;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border-left: 5px solid #a2a2bc;
+            max-width: 800px;
+            width: 100%;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        .credits h3 { color: #a2a2bc; margin-top: 0; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -63,11 +99,15 @@
     <header>
         <h1>🎮 Central de Emulação</h1>
         <p>Selecione um jogo do seu PC para começar.</p>
+        
+        <div class="nav-bar">
+            <a href="cantinho.html" class="btn-nav">📂 Visitar o Cantinho do Artur</a>
+        </div>
     </header>
     
     <input type="file" id="rom-upload" accept=".nes" style="display: none;">
     <button class="btn-upload" onclick="document.getElementById('rom-upload').click()">
-        📁 Carregar ROM de NES
+        🕹️ Carregar ROM de NES
     </button>
 
     <div id="game-container">
@@ -77,23 +117,29 @@
     <div class="instructions" id="instrucoes">
         <h3>Como jogar:</h3>
         <ul>
-            <li>Clique no botão acima e escolha um arquivo <b>.nes</b>.</li>
-            <li>O jogo rodará instantaneamente direto do seu navegador.</li>
-            <li><strong>Saves:</strong> O progresso é salvo no navegador. Exporte seu save pelo menu caso vá mudar de computador.</li>
+            <li>Clica no botão acima e escolhe um ficheiro <b>.nes</b>.</li>
+            <li>O jogo rodará instantaneamente direto do teu navegador.</li>
+            <li><strong>Saves:</strong> O progresso é salvo no navegador. Exporta o teu save pelo menu caso vás mudar de computador.</li>
         </ul>
     </div>
 
+    <div class="credits" id="creditos">
+        <h3>🏆 Apoio ao Homebrew e Fanmades</h3>
+        <p><strong>Famidash e outros:</strong> Este portal apoia o desenvolvimento de jogos independentes (homebrews) para consolas clássicas. Todos os direitos de propriedades intelectuais, jogos fanmade e demakes pertencem aos seus respetivos autores originais e criadores independentes. Apoia sempre o lançamento oficial!</p>
+    </div>
+
     <script>
-        // Escuta quando o usuário escolhe um arquivo
+        // Escuta quando o utilizador escolhe um ficheiro
         document.getElementById('rom-upload').addEventListener('change', function(event) {
             let file = event.target.files[0];
             if (!file) return;
 
-            // Transforma o arquivo local em um link "falso" que o emulador entende
+            // Transforma o ficheiro local num link "falso" que o emulador entende
             let romTemporariaURL = URL.createObjectURL(file);
 
-            // Esconde as instruções e mostra a tela do jogo
+            // Esconde as instruções e créditos para focar no ecrã do jogo
             document.getElementById('instrucoes').style.display = 'none';
+            document.getElementById('creditos').style.display = 'none';
             document.getElementById('game-container').style.display = 'block';
 
             // Inicia a configuração do Emulador
@@ -102,10 +148,10 @@
             window.EJS_color = '#e94560'; 
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
             
-            // Passa a ROM que acabamos de carregar
+            // Passa a ROM que acabámos de carregar
             window.EJS_gameUrl = romTemporariaURL; 
 
-            // Injeta o motor do emulador só AGORA (evita o erro de rede)
+            // Injeta o motor do emulador apenas AGORA
             let script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
             document.body.appendChild(script);
