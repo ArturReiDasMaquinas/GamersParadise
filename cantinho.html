@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +22,7 @@
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 800px; /* Deixei um pouco mais estreito já que tem menos coisas */
             display: flex;
             flex-direction: column;
             gap: 30px;
@@ -44,64 +44,40 @@
             margin-bottom: 20px;
         }
 
-        /* Item Label Style */
         .item-label {
             color: #e94560;
             font-weight: bold;
             font-family: 'Courier New', monospace;
-            margin: 10px 0 5px 0;
-            font-size: 1rem;
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
             text-align: left;
         }
 
-        /* Grid para Imagens */
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .image-item {
-            display: flex;
-            flex-direction: column;
-        }
-        .image-gallery img {
+        /* Estilo da Imagem */
+        .image-item img {
             width: 100%;
-            height: 150px;
+            max-height: 400px;
             object-fit: cover;
             border-radius: 5px;
             border: 2px solid #1a1a2e;
-            transition: 0.3s;
             background-color: #000;
         }
-        .image-gallery img:hover { transform: scale(1.05); }
 
-        /* Lista de Áudios */
-        .audio-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        /* Estilo do Áudio */
         .audio-card {
             background: #1a1a2e;
-            padding: 12px;
+            padding: 15px;
             border-radius: 6px;
         }
-        audio { width: 100%; height: 35px; }
+        audio { width: 100%; height: 40px; outline: none; }
 
-        /* Grid para Vídeos */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
+        /* Estilo do Vídeo */
         .video-card {
-            display: flex;
-            flex-direction: column;
             background: #1a1a2e;
-            padding: 10px;
+            padding: 15px;
             border-radius: 6px;
         }
-        video { width: 100%; border-radius: 4px; background: #000; }
+        video { width: 100%; border-radius: 4px; background: #000; outline: none; }
 
         /* Botão de Voltar */
         .btn-voltar {
@@ -122,111 +98,39 @@
 
     <header>
         <h1>👾 Cantinho do Artur</h1>
-        <p>Espaço pessoal para guardar e aceder aos teus ficheiros de qualquer lugar.</p>
+        <p>Espaço pessoal para arquivos e projetos.</p>
         <a href="index.html" class="btn-voltar">⬅ Voltar para o Emulador</a>
     </header>
 
     <div class="container">
         
         <div class="section-box">
-            <h2>🖼️ Galeria de Imagens</h2>
-            <div class="image-gallery">
-                <div class="image-item">
-                    <p class="item-label">imagem1</p>
-                    <img src="imagens/imagem1.png" alt="Imagem 1">
-                </div>
-                <div class="image-item">
-                    <p class="item-label">imagem2</p>
-                    <img src="imagens/imagem2.png" alt="Imagem 2">
-                </div>
-                <div class="image-item">
-                    <p class="item-label">imagem3</p>
-                    <img src="imagens/imagem3.png" alt="Imagem 3">
-                </div>
-                <div class="image-item">
-                    <p class="item-label">imagem4</p>
-                    <img src="imagens/imagem4.png" alt="Imagem 4">
-                </div>
-                <div class="image-item">
-                    <p class="item-label">imagem5</p>
-                    <img src="imagens/imagem5.png" alt="Imagem 5">
-                </div>
-                <div class="image-item">
-                    <p class="item-label">imagem6</p>
-                    <img src="imagens/imagem6.png" alt="Imagem 6">
-                </div>
-                <div class="image-item">
-                    <p class="item-label">imagem7</p>
-                    <img src="imagens/imagem7.png" alt="Imagem 7">
-                </div>
+            <h2>🖼️ Imagem em Destaque</h2>
+            <div class="image-item">
+                <p class="item-label">Minha Imagem</p>
+                <img src="imagens/imagem1.png" alt="Imagem 1">
             </div>
         </div>
 
         <div class="section-box">
-            <h2>🎵 Músicas e Áudios</h2>
-            <div class="audio-list">
-                <div class="audio-card">
-                    <p class="item-label">audio1</p>
-                    <audio controls><source src="audios/audio1.mp3" type="audio/mpeg"></audio>
-                </div>
-                <div class="audio-card">
-                    <p class="item-label">audio2</p>
-                    <audio controls><source src="audios/audio2.mp3" type="audio/mpeg"></audio>
-                </div>
-                <div class="audio-card">
-                    <p class="item-label">audio3</p>
-                    <audio controls><source src="audios/audio3.mp3" type="audio/mpeg"></audio>
-                </div>
-                <div class="audio-card">
-                    <p class="item-label">audio4</p>
-                    <audio controls><source src="audios/audio4.mp3" type="audio/mpeg"></audio>
-                </div>
-                <div class="audio-card">
-                    <p class="item-label">audio5</p>
-                    <audio controls><source src="audios/audio5.mp3" type="audio/mpeg"></audio>
-                </div>
-                <div class="audio-card">
-                    <p class="item-label">audio6</p>
-                    <audio controls><source src="audios/audio6.mp3" type="audio/mpeg"></audio>
-                </div>
-                <div class="audio-card">
-                    <p class="item-label">audio7</p>
-                    <audio controls><source src="audios/audio7.mp3" type="audio/mpeg"></audio>
-                </div>
+            <h2>🎵 Áudio</h2>
+            <div class="audio-card">
+                <p class="item-label">Meu Áudio</p>
+                <audio controls>
+                    <source src="audios/audio1.mp3" type="audio/mpeg">
+                    Seu navegador não suporta a tag de áudio.
+                </audio>
             </div>
         </div>
 
         <div class="section-box">
-            <h2>🎬 Vídeos e Clips</h2>
-            <div class="video-grid">
-                <div class="video-card">
-                    <p class="item-label">video1</p>
-                    <video controls><source src="videos/video1.mp4" type="video/mp4"></video>
-                </div>
-                <div class="video-card">
-                    <p class="item-label">video2</p>
-                    <video controls><source src="videos/video2.mp4" type="video/mp4"></video>
-                </div>
-                <div class="video-card">
-                    <p class="item-label">video3</p>
-                    <video controls><source src="videos/video3.mp4" type="video/mp4"></video>
-                </div>
-                <div class="video-card">
-                    <p class="item-label">video4</p>
-                    <video controls><source src="videos/video4.mp4" type="video/mp4"></video>
-                </div>
-                <div class="video-card">
-                    <p class="item-label">video5</p>
-                    <video controls><source src="videos/video5.mp4" type="video/mp4"></video>
-                </div>
-                <div class="video-card">
-                    <p class="item-label">video6</p>
-                    <video controls><source src="videos/video6.mp4" type="video/mp4"></video>
-                </div>
-                <div class="video-card">
-                    <p class="item-label">video7</p>
-                    <video controls><source src="videos/video7.mp4" type="video/mp4"></video>
-                </div>
+            <h2>🎬 Gameplay</h2>
+            <div class="video-card">
+                <p class="item-label">Vídeo de Gameplay</p>
+                <video controls>
+                    <source src="videos/video1.mp4" type="video/mp4">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
             </div>
         </div>
 
