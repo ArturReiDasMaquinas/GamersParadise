@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portal Retro - NES</title>
+    <style>
+        body { 
+            background-color: #1a1a2e; 
+            color: #ffffff; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            color: #e94560; 
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            color: #a2a2bc;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        #game-container { 
+            width: 800px; 
+            height: 600px; 
+            max-width: 100%; 
+            border: 4px solid #0f3460; 
+            border-radius: 10px;
+            box-shadow: 0px 0px 30px rgba(233, 69, 96, 0.4); 
+            background: #000;
+            overflow: hidden;
+        }
+
+        .instructions {
+            margin-top: 20px;
+            background: #0f3460;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border-left: 5px solid #e94560;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎮 Central de Emulação</h1>
+        <p>Acesse seus jogos de qualquer lugar.</p>
+    </header>
+    
+    <div id="game-container">
+        <div id="game"></div>
+    </div>
+
+    <div class="instructions">
+        <h3>Como jogar:</h3>
+        <ul>
+            <li>Clique no botão do emulador acima.</li>
+            <li>Selecione uma ROM (.nes) que esteja no computador que você está usando.</li>
+            <li><strong>Saves:</strong> O progresso é salvo no navegador. Use o menu do emulador para exportar seu arquivo de save se for trocar de computador!</li>
+        </ul>
+    </div>
+
+    <script>
+        EJS_player = '#game';
+        
+        // Define o núcleo para Nintendo Entertainment System (NES)
+        EJS_core = 'nes'; 
+        
+        // Personalização visual
+        EJS_color = '#e94560'; 
+        
+        // Carrega os dados direto da CDN oficial (não precisa baixar os núcleos no GitHub)
+        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
+        
+        // NOTA: Como não definimos a EJS_gameUrl, o emulador abrirá
+        // automaticamente a tela de "Upload File" para você subir sua ROM na hora.
+    </script>
+    
+    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+    
+</body>
+</html>
